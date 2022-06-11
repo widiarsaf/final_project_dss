@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class LocationController extends Controller
 {
     public function index()
     {
-        //
+        $location = DB::table('location')->get();
+        return view ('admin.location.index', compact('location'));
     }
 
     public function create()

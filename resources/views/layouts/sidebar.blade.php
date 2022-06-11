@@ -29,7 +29,7 @@
 		<!-- Criteria -->
 		<li class="menu-item">
 			<a href="{{route('location.index')}}" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-label"></i>
+				<i class="menu-icon tf-icons bx bx-location-plus"></i>
 				<div data-i18n="Analytics">Locations</div>
 			</a>
 		</li>
