@@ -15,7 +15,7 @@ class LocationController extends Controller
 
     public function create()
     {
-        //
+        return view('admin.location.add');
     }
 
 
