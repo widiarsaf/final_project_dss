@@ -26,6 +26,13 @@
 				<div data-i18n="Analytics">Criteria</div>
 			</a>
 		</li>
+		<!-- Criteria -->
+		<li class="menu-item">
+			<a href="{{route('location.index')}}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-label"></i>
+				<div data-i18n="Analytics">Locations</div>
+			</a>
+		</li>
 		<!-- Admin User-->
 		<li class="menu-item">
 			<a href="{{url('user-index')}}" class="menu-link">
