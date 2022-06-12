@@ -15,55 +15,21 @@
 					</tr>
 				</thead>
 				<tbody class="table-border-bottom-0">
+					@foreach ($location as $loc)
 					<tr>
-						<td>1101</td>
-						<td>Albert Cook</td>
-						<td>0.0</td>
+						<td>{{$loc->id}}</td>
+						<td>{{$loc->location_name}}</td>
+						<td>{{$loc->value}}</td>
 						<td>
-							<div class="dropdown">
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-									<i class="bx bx-dots-vertical-rounded"></i>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-								</div>
-							</div>
+							<form action="{{ route('location.destroy',['location'=>$loc->id]) }}" method="POST">
+								<a class="btn btn-warning" href=" {{route('location.edit',$loc->id) }}" id = "edit{{$loc->id}}"><i class="ti-marker-alt"></i></a>
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="btn btn-danger" id = "delete{{$loc->id}}"><i class="ti-trash"></i></button>
+							</form>
 						</td>
 					</tr>
-					<tr>
-						<td>1101</td>
-						<td>Albert Cook</td>
-						<td>0.0</td>
-						<td>
-							<div class="dropdown">
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-									<i class="bx bx-dots-vertical-rounded"></i>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>1101</td>
-						<td>Albert Cook</td>
-						<td>0.0</td>
-						<td>
-							<div class="dropdown">
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-									<i class="bx bx-dots-vertical-rounded"></i>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-
+					@endforeach
 				</tbody>
 			</table>
 		</div>
