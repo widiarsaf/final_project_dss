@@ -54,13 +54,15 @@ class LocationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id'=>'required',
-            'name'=>'required',
+            'location_name'=>'required',
             'value'=>'nullable',
         ]);
 
-        location::find($id)->update($request->all());
-        location::save();
+        $location = location::where('id', $id)->first();
+        $location->location_name = $request->get('location_name');
+        $location->value = $request->get('value');
+        $location->save();
+
         return redirect()->route('location.index');
     }
 
