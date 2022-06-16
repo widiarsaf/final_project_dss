@@ -21,7 +21,7 @@
 		</li>
 		<!-- Criteria -->
 		<li class="menu-item">
-			<a href="{{url('criteria-index')}}" class="menu-link">
+			<a href="{{route('criteria.index')}}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-label"></i>
 				<div data-i18n="Analytics">Criteria</div>
 			</a>

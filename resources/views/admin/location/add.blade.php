@@ -11,12 +11,6 @@
 		<div class="card-body">
 			<form method="POST" action="{{ route('location.store') }}">
 			@csrf	
-			<div class="row mb-3">
-					<label class="col-sm-2 col-form-label" >ID</label>
-					<div class="col-sm-10">
-						<input name="location_id" type="text" class="form-control"  placeholder="01"/>
-					</div>
-				</div>
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" >Location Name</label>
 					<div class="col-sm-10">
@@ -32,13 +26,8 @@
 				
 				<div class="row justify-content-end">
 					<div class="col-sm-10">
-<<<<<<< HEAD
-						<a href=""><button type="submit" class="btn btn-primary">Send</button></a>
-						<a href=""><button type="submit" class="btn btn-outline-primary">Back</button></a>
-=======
-						<button type="submit" class="btn btn-primary" style="color: white">Send</button>
-						<!-- <a type="submit" class="btn btn-outline-primary" style="color: black">Back</a> -->
->>>>>>> 05840ef893504fbd360d059e39b6a2b15dd0a0e9
+						<button type="submit" class="btn btn-primary" style="color: white">Save</button>
+					 <a type="submit" class="btn btn-outline-primary" style="color: black" href={{route('location.index')}}>Back</a>
 					</div>
 				</div>
 			</form>

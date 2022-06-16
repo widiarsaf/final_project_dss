@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\CriteriaController;
 
 
 Route::get('/', function () {
@@ -32,3 +33,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // CRUD
 Route::resource('location', LocationController::class);
+Route::resource('criteria', CriteriaController::class);

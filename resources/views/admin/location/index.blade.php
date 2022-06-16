@@ -22,10 +22,10 @@
 						<td>{{$loc->value}}</td>
 						<td>
 							<form action="{{ route('location.destroy',['location'=>$loc->id]) }}" method="POST">
-								<a class="btn btn-warning" href=" {{route('location.edit',$loc->id) }}" id = "edit{{$loc->id}}"><i class="ti-marker-alt"></i></a>
+								<a class="btn btn-warning" href=" {{route('location.edit',$loc->id) }}" id = "edit{{$loc->id}}"><i class="bx bxs-edit"></i>Edit</a>
 								@csrf
 								@method('DELETE')
-								<button type="submit" class="btn btn-danger" id = "delete{{$loc->id}}"><i class="ti-trash"></i></button>
+								<button type="submit" class="btn btn-danger" id = "delete{{$loc->id}}"><i class="bx bx-trash-alt"></i>Delete</button>
 							</form>
 						</td>
 					</tr>

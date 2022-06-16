@@ -24,7 +24,8 @@
 		<div class="row justify-content-end">
 			<div class="col-sm-10">
 				<button type="submit" class="btn btn-primary" style="color: white">Send</button>
-				<!-- <a type="submit" class="btn btn-outline-primary" style="color: black">Back</a> -->
+				<a type="submit" class="btn btn-outline-primary" style="color: black" href={{route('location.index')}}>Back</a>
+				</div>
 			</div>
 		</div>
 	</form>

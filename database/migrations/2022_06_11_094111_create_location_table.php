@@ -10,7 +10,7 @@ class CreateLocationTable extends Migration
     public function up()
     {
         Schema::create('location', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('location_name');
             $table->float('value')->nullable();
         });
