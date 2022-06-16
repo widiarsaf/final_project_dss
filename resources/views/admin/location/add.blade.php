@@ -31,8 +31,8 @@
 				
 				<div class="row justify-content-end">
 					<div class="col-sm-10">
-						<a type="submit" class="btn btn-primary" style="color: white">Send</a>
-						<a type="submit" class="btn btn-outline-primary" style="color: black">Back</a>
+						<a href=""><button type="submit" class="btn btn-primary">Send</button></a>
+						<a href=""><button type="submit" class="btn btn-outline-primary">Back</button></a>
 					</div>
 				</div>
 			</form>
