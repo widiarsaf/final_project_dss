@@ -13,6 +13,7 @@ class CreateAlternativeTable extends Migration
             $table->String("university");
             $table->unsignedBigInteger('id_location')->nullable();
             $table->foreign('id_location')->references('id')->on('location')->onDelete('set null')->onUpdate('cascade');
+            $table->float('national_rank')->nullable();
             $table->float('quality_educations')->nullable();
             $table->float('alumni_employment')->nullable();
             $table->float('quality_faculty')->nullable();

@@ -3,82 +3,103 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Alternative;
+use App\Models\Location;
+use DB;
 
 class AlternativeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $alternative = Alternative::with('location')->get();
+        return view ('admin.alternative.index', compact('alternative'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $location = DB::table('location')->get();
+        return view('admin.alternative.add', compact('location'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+       
+        $request->validate([
+            'university'=>'required',
+            'location'=>'nullable',
+            'national_rank'=>'nullable',
+            'quality_educations'=>'nullable',
+            'alumni_employment'=>'nullable',
+            'quality_faculty'=>'nullable',
+            'research_performance'=>'nullable',
+        ]);
+
+        $alternative = new Alternative;
+        $alternative->university = $request->get('university');
+        $alternative->national_rank = $request->get('national_rank');
+        $alternative->quality_educations = $request->get('quality_educations');
+        $alternative->alumni_employment = $request->get('alumni_employment');
+        $alternative->quality_faculty = $request->get('quality_faculty');
+        $alternative->research_performance = $request->get('research_performance');
+
+        $location = new Location;
+        $location->id = $request->get('location');
+        
+        $alternative->location()->associate($location);
+        $alternative->save();
+        
+        return redirect()->route('alternative.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $request->validate([
+            'university'=>'required',
+            'location'=>'nullable',
+            'national_rank'=>'nullable',
+            'quality_educations'=>'nullable',
+            'alumni_employment'=>'nullable',
+            'quality_faculty'=>'nullable',
+            'research_performance'=>'nullable',
+        ]);
+
+        $alternative = Alternative::with('location')->where('id', $id)->first();
+        $alternative->university = $request->get('university');
+        $alternative->national_rank = $request->get('national_rank');
+        $alternative->quality_educations = $request->get('quality_educations');
+        $alternative->alumni_employment = $request->get('alumni_employment');
+        $alternative->quality_faculty = $request->get('quality_faculty');
+        $alternative->research_performance = $request->get('research_performance');
+
+        $location = new Location;
+        $location->id = $request->get('location');
+        
+        $alternative->location()->associate($location);
+        $alternative->save();
+        
+        return redirect()->route('alternative.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        Alternative::find($id)->delete();
+        return redirect()->route('alternative.index');
     }
 }

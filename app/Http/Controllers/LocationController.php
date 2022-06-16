@@ -56,7 +56,7 @@ class LocationController extends Controller
             'value'=>'nullable',
         ]);
 
-        $location = location::where('id', $id)->first();
+        $location = Location::where('id', $id)->first();
         $location->location_name = $request->get('location_name');
         $location->value = $request->get('value');
         $location->save();
@@ -67,7 +67,7 @@ class LocationController extends Controller
 
     public function destroy($id)
     {
-        location::find($id)->delete();
+        Location::find($id)->delete();
         return redirect()->route('location.index');
     }
 }

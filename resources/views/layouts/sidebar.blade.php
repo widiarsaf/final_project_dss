@@ -14,7 +14,7 @@
 	<ul class="menu-inner py-1">
 		<!-- Alternatives-->
 		<li class="menu-item">
-			<a href="{{url('altv-index')}}" class="menu-link">
+			<a href="{{route('alternative.index')}}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-food-menu"></i>
 				<div data-i18n="Analytics">Alternatives</div>
 			</a>
