@@ -5,9 +5,12 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\AlternativeController;
+use App\Http\Controllers\ProcessController;
 
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/process', [ProcessController::class, 'index'])->name('process');
+Route::get('/reset/data', [ProcessController::class, 'reset'])->name('reset');
 
 
 
