@@ -10,7 +10,6 @@
 					<tr>
 						<th>ID</th>
 						<th>Location Name</th>
-						<th>Value</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -19,7 +18,6 @@
 					<tr>
 						<td>{{$loc->id}}</td>
 						<td>{{$loc->location_name}}</td>
-						<td>{{$loc->value}}</td>
 						<td>
 							<form action="{{ route('location.destroy',['location'=>$loc->id]) }}" method="POST">
 								<a class="btn btn-warning" href=" {{route('location.edit',$loc->id) }}" id = "edit{{$loc->id}}"><i class="bx bxs-edit"></i>Edit</a>

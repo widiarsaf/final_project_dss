@@ -13,11 +13,10 @@ class CreateWeightCriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('weight_criteria', function (Blueprint $table) {
+        Schema::create('criteria', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("criteria_name");
             $table->integer("attribute");
-            $table->float("weight")->nullable();
         });
     }
 

@@ -10,7 +10,6 @@
 				<tr>
 					<th>Criteria Name</th>
 					<th>Attribute</th>
-					<th>Weight</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -23,7 +22,6 @@
 					@elseif(($cr->attribute ==2))
 					<td>Benefits</td>
 					@endif
-					<td>{{$cr->weight}}</td>
 					<td>
 						<form action="{{ route('criteria.destroy',$cr->id) }}" method="POST">
 							<a class="btn btn-warning" href=" {{route('criteria.edit',$cr->id) }}" id="edit{{$cr->id}}"><i

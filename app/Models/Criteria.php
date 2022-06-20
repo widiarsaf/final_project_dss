@@ -9,7 +9,7 @@ class Criteria extends Model
 {
     use HasFactory;
     use HasFactory;
-    protected $table = 'weight_criteria';
+    protected $table = 'criteria';
     protected $guarded = [];
     public $timestamps = false;
 }

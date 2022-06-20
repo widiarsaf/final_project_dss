@@ -17,12 +17,6 @@
 						<input name="location_name" type="text" class="form-control"  placeholder="Ex. USA, UK, TURKEY.." />
 					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label" >Value</label>
-					<div class="col-sm-10">
-						<input name="location_value" type="text" class="form-control"  placeholder="0.0" />
-					</div>
-				</div>
 				
 				<div class="row justify-content-end">
 					<div class="col-sm-10">

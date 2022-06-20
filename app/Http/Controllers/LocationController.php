@@ -24,12 +24,10 @@ class LocationController extends Controller
     {
         $request->validate([
             'location_name'=>'required',
-            'location_value'=>'nullable',
         ]);
 
         $location = new Location;
         $location->location_name = $request->get('location_name');
-        $location->value = $request->get('location_value');
         $location->save();
         
         return redirect()->route('location.index');
@@ -53,12 +51,10 @@ class LocationController extends Controller
     {
         $request->validate([
             'location_name'=>'required',
-            'value'=>'nullable',
         ]);
 
         $location = Location::where('id', $id)->first();
         $location->location_name = $request->get('location_name');
-        $location->value = $request->get('value');
         $location->save();
 
         return redirect()->route('location.index');

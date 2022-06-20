@@ -14,12 +14,6 @@
 				<input name="location_name" type="text" class="form-control" value="{{ $location->location_name }}" />
 			</div>
 		</div>
-		<div class="row mb-3">
-			<label class="col-sm-2 col-form-label">Value</label>
-			<div class="col-sm-10">
-				<input name="value" type="text" class="form-control" value="{{ $location->value }}" />
-			</div>
-		</div>
 
 		<div class="row justify-content-end">
 			<div class="col-sm-10">

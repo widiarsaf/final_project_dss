@@ -26,13 +26,6 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">weight</label>
-					<div class="col-sm-10">
-						<input name="weight" type="text" class="form-control" placeholder="Enter weight..." />
-					</div>
-				</div>
-
 				<div class="row justify-content-end">
 					<div class="col-sm-10">
 						<button type="submit" class="btn btn-primary" style="color: white">Send</button>
