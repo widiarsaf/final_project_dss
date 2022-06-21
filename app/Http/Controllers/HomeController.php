@@ -17,7 +17,8 @@ class HomeController extends Controller
 
     public function index()
     {
+        $criteria = DB::table('criteria')->get();
          $location = DB::table('location')->get();
-        return view('welcome', compact('location'));
+        return view('welcome', compact('location','criteria'));
     }
 }
