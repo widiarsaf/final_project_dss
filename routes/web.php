@@ -6,27 +6,24 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\AlternativeController;
 use App\Http\Controllers\ProcessController;
-
-
-Route::get('/', [HomeController::class, 'index']);
-Route::post('/process', [ProcessController::class, 'index'])->name('process');
-Route::get('/reset/data', [ProcessController::class, 'reset'])->name('reset');
-
-
-
-
-// User Admin
-Route::get('/user-index', function () {
-    return view('admin.users.index');
-});
+use App\Http\Controllers\UserController;
+use Illuminate\Auth\Middleware\Authenticate;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// without out
+Route::post('/process', [ProcessController::class, 'index'])->name('process');
+Route::get('/reset/data', [ProcessController::class, 'reset'])->name('reset');
+Route::get('/', [ProcessController::class, 'welcome'])->name('welcome');
 
 
 
-// CRUD
-Route::resource('location', LocationController::class);
-Route::resource('criteria', CriteriaController::class);
-Route::resource('alternative', AlternativeController::class);
+
+
+// with auth
+Route::resource('location', LocationController::class)->middleware('auth');
+Route::resource('criteria', CriteriaController::class)->middleware('auth');
+Route::resource('alternative', AlternativeController::class)->middleware('auth');
+Route::resource('user', UserController::class)->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+Route::post('/logout2', [HomeController::class, 'logout'])->middleware('auth');

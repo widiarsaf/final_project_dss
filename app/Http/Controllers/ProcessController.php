@@ -10,6 +10,11 @@ use DB;
 
 class ProcessController extends Controller
 {
+    public function welcome(){
+         $criteria = DB::table('criteria')->get();
+        $location = DB::table('location')->get();
+        return view('welcome', compact('location','criteria'));
+    }
 
     public function index(Request $request){
         
@@ -25,23 +30,26 @@ class ProcessController extends Controller
 
         // dd($value_location);
 
+        $criteria_name_pluck = Criteria::pluck('criteria_name');
+
         $determine_matrix = array();
         // get determine matrix
         foreach($selected_alternative as $alternative){
             // echo $value_location[$alternative->id_location]['value'];
-
             $determine_matrix[$alternative->id]['id'] = $alternative->id;
-            // $determine_matrix[$alternative->id]['univeristy'] = $alternative->university;
-            $determine_matrix[$alternative->id]['national_rank'] = $alternative->national_rank;
-            $determine_matrix[$alternative->id]['quality_educations'] = $alternative->quality_educations;
-            $determine_matrix[$alternative->id]['alumni_employment'] = $alternative->alumni_employment;
-            $determine_matrix[$alternative->id]['quality_faculty'] = $alternative->quality_faculty;
-            $determine_matrix[$alternative->id]['research_performance'] = $alternative->research_performance;
-            $determine_matrix[$alternative->id]['location'] = $value_location[$alternative->id_location]['value'];
+
+            foreach ($criteria_name_pluck as $c){
+
+                if($c == 'location'){
+                    $determine_matrix[$alternative->id]['location'] = $value_location[$alternative->id_location]['value'];
+                }
+                else{
+                    $determine_matrix[$alternative->id][$c] = $alternative->$c;
+                }
+                 
+            }
+            
         }
-
-        // dd($determine_matrix);
-
 
 
         // Normalized 
@@ -126,9 +134,6 @@ class ProcessController extends Controller
             }
         }
     }
-
-
-
 
 
         $location = DB::table('location')->get();

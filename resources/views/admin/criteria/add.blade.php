@@ -15,6 +15,7 @@
 					<label class="col-sm-2 col-form-label">Criteria Name</label>
 					<div class="col-sm-10">
 						<input name="criteria_name" type="text" class="form-control" placeholder="Enter criteria name..." />
+						<div class="form-text">*Please input with lowercase and underscore, ex. national_rank</div>
 					</div>
 				</div>
 				<div class="row mb-3">

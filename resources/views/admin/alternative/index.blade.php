@@ -9,12 +9,9 @@
 			<thead>
 				<tr>
 					<th>University Name</th>
-					<th>Location</th>
-					<th>national_rank</th>
-					<th>quality_educations</th>
-					<th>alumni_employment</th>
-					<th>quality_faculty</th>
-					<th>research_performance</th>
+					@foreach ($criteria as $c )
+					<th>{{$c}}</th>
+					@endforeach
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -22,12 +19,13 @@
 				@foreach ($alternative as $altv)
 				<tr>
 					<td>{{$altv->university}}</td>
-					<td>{{$altv->location->location_name}}</td>
-					<td>{{$altv->national_rank}}</td>
-					<td>{{$altv->quality_educations}}</td>
-					<td>{{$altv->alumni_employment}}</td>
-					<td>{{$altv->quality_faculty}}</td>
-					<td>{{$altv->research_performance}}</td>
+					@foreach ($criteria as $c )
+						@if ($c == 'location')
+							<th>{{$altv->$c->location_name}}</th>
+						@else
+							<th>{{$altv->$c}}</th>
+						@endif
+					@endforeach
 					<td>
 						<form action="{{ route('alternative.destroy', $altv->id) }}" method="POST">
 							<a class="btn btn-warning" href=" {{route('alternative.edit',$altv->id) }}" id="edit{{$altv->id}}"><i

@@ -35,7 +35,7 @@
 		</li>
 		<!-- Admin User-->
 		<li class="menu-item">
-			<a href="{{url('user-index')}}" class="menu-link">
+			<a href="{{route('user.index')}}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-user"></i>
 				<div data-i18n="Analytics">Admin User</div>
 			</a>

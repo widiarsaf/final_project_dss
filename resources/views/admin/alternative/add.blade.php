@@ -12,22 +12,35 @@
 			<form method="POST" action="{{ route('alternative.store') }}">
 				@csrf
 				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">University</label>
-					<div class="col-sm-10">
+					<label class="col-sm-3 col-form-label">University</label>
+					<div class="col-sm-9">
 						<input name="university" type="text" class="form-control" placeholder="Enter criteria name..." />
 					</div>
 				</div>
+				@foreach ($criteria as $c )
+				@if ($c == 'location')
 				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">Location</label>
-					<div class="col-sm-10">
-						<select id="defaultSelect" class="form-select form-select" name="location">
+					<label class="col-sm-3 col-form-label">Location</label>
+					<div class="col-sm-9">
+						<select id="defaultSelect" class="form-select form-select" name="{{$c}}">
 							@foreach($location as $loc)
 							<option value="{{$loc->id}}">{{$loc->location_name}}</option>
 							@endforeach
 						</select>
 					</div>
 				</div>
+				@else
 				<div class="row mb-3">
+					<label class="col-sm-3 col-form-label">{{$c}}</label>
+					<div class="col-sm-9">
+						<input name="{{$c}}" type="number" class="form-control" placeholder="Enter value..." />
+					</div>
+				</div>
+
+				@endif
+				@endforeach
+
+				{{-- <div class="row mb-3">
 					<label class="col-sm-2 col-form-label">national_rank</label>
 					<div class="col-sm-10">
 						<input name="national_rank" type="number" class="form-control" placeholder="Enter value..." />
@@ -56,10 +69,10 @@
 					<div class="col-sm-10">
 						<input name="research_performance" type="number" class="form-control" placeholder="Enter value..." />
 					</div>
-				</div>
+				</div> --}}
 
 				<div class="row justify-content-end">
-					<div class="col-sm-10">
+					<div class="col-sm">
 						<button type="submit" class="btn btn-primary" style="color: white">Send</button>
 						<a type="submit" href="{{route('alternative.index')}}" class="btn btn-outline-primary"
 							style="color: black">Back</a>
