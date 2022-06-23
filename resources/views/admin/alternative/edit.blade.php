@@ -25,7 +25,7 @@
 					<div class="col-sm-9">
 						<select id="defaultSelect" class="form-select form-select" name="{{$c}}">
 							@foreach($location as $loc)
-							<option value="{{$loc->id}}">{{$loc->location_name}}</option>
+							<option value="{{$loc->id}}" {{$loc->id ===  $alternative->id_location ? 'selected' : ''}}>{{$loc->location_name}}</option>
 							@endforeach
 						</select>
 					</div>

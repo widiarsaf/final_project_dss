@@ -20,6 +20,7 @@ class ProcessController extends Controller
         
         $weight = $request->get('weight');
         $location_selected = $request->get('option');
+        
         $selected_alternative = Alternative::whereIn('id_location', $location_selected)->get();
         $count = count($location_selected);
         $value_location = array();
