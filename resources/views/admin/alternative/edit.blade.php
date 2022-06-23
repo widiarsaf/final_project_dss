@@ -9,12 +9,13 @@
 			<small class="text-muted float-end"></small>
 		</div>
 		<div class="card-body">
-			<form method="POST" action="{{ route('alternative.update') }}">
+			<form method="post" action="{{ route('alternative.update', $alternative->id) }}">
 				@csrf
+				@method('PUT')
 				<div class="row mb-3">
 					<label class="col-sm-3 col-form-label">University</label>
 					<div class="col-sm-9">
-						<input name="university" type="text" class="form-control" placeholder="Enter criteria name..." />
+						<input name="university" type="text" class="form-control" placeholder="Enter criteria name..." value="{{$alternative->university}}" />
 					</div>
 				</div>
 				@foreach ($criteria as $c )
@@ -33,7 +34,7 @@
 				<div class="row mb-3">
 					<label class="col-sm-3 col-form-label">{{$c}}</label>
 					<div class="col-sm-9">
-						<input name="{{$c}}" type="number" class="form-control" placeholder="Enter value..." />
+						<input name="{{$c}}" type="number" class="form-control" placeholder="Enter value..." value="{{$alternative->$c}}"/>
 					</div>
 				</div>
 

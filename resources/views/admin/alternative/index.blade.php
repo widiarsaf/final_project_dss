@@ -28,7 +28,7 @@
 					@endforeach
 					<td>
 						<form action="{{ route('alternative.destroy', $altv->id) }}" method="POST">
-							<a class="btn btn-warning" href=" {{route('alternative.edit',$altv->id) }}" id="edit{{$altv->id}}"><i
+							<a class="btn btn-warning" href=" {{route('alternative.edit', $altv->id) }}" id="edit{{$altv->id}}"><i
 									class="bx bxs-edit"></i>Edit</a>
 							@csrf
 							@method('DELETE')

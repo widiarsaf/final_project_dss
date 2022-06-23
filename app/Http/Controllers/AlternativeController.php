@@ -67,36 +67,37 @@ class AlternativeController extends Controller
     {
         $criteria = Criteria::pluck('criteria_name');
         $location = DB::table('location')->get();
-        $alternative = DB::table('alternatives')->where('id', $id)->first();
-        return view('admin.alternative.edit', compact('alternatives','location', 'criteria'));
+        $alternative = DB::table('alternative')->where('id', $id)->first();
+        return view('admin.alternative.edit', compact('alternative','location', 'criteria'));
     }
 
  
 
     public function update(Request $request, $id)
     {
-          $request->validate([
+
+        $criteria = Criteria::pluck('criteria_name');
+        $request->validate([
             'university'=>'required',
-            'location'=>'nullable',
-            'national_rank'=>'nullable',
-            'quality_educations'=>'nullable',
-            'alumni_employment'=>'nullable',
-            'quality_faculty'=>'nullable',
-            'research_performance'=>'nullable',
         ]);
 
         $alternative = Alternative::with('location')->where('id', $id)->first();
         $alternative->university = $request->get('university');
-        $alternative->national_rank = $request->get('national_rank');
-        $alternative->quality_educations = $request->get('quality_educations');
-        $alternative->alumni_employment = $request->get('alumni_employment');
-        $alternative->quality_faculty = $request->get('quality_faculty');
-        $alternative->research_performance = $request->get('research_performance');
 
-        $location = new Location;
-        $location->id = $request->get('location');
+        foreach ($criteria as $c){
+
+            if($c == 'location'){
+                 $location = new Location;
+                 $location->id = $request->get($c);
         
-        $alternative->location()->associate($location);
+                $alternative->location()->associate($location);
+            }
+            else{
+                $alternative->$c = $request->get($c);
+            }
+        }
+       
+       
         $alternative->save();
         
         return redirect()->route('alternative.index');
