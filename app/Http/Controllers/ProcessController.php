@@ -20,7 +20,6 @@ class ProcessController extends Controller
         
         $weight = $request->get('weight');
         $location_selected = $request->get('option');
-        
         $selected_alternative = Alternative::whereIn('id_location', $location_selected)->get();
         $count = count($location_selected);
         $value_location = array();
@@ -28,55 +27,41 @@ class ProcessController extends Controller
             $value_location[$location_selected[$i]]['value'] = $count;
             $count--; 
         }
+        
 
-        // dd($value_location);
-
-        $criteria_name_pluck = Criteria::pluck('criteria_name');
-
-        $determine_matrix = array();
         // get determine matrix
+        $criteria_name_pluck = Criteria::pluck('criteria_name');
+        $determine_matrix = array();
         foreach($selected_alternative as $alternative){
-            // echo $value_location[$alternative->id_location]['value'];
             $determine_matrix[$alternative->id]['id'] = $alternative->id;
-
             foreach ($criteria_name_pluck as $c){
-
                 if($c == 'location'){
                     $determine_matrix[$alternative->id]['location'] = $value_location[$alternative->id_location]['value'];
                 }
                 else{
                     $determine_matrix[$alternative->id][$c] = $alternative->$c;
-                }
-                 
-            }
-            
+                }      
+            }   
         }
+
 
 
         // Normalized 
         $normalized_matrix = array();
         $criteria = DB::table('criteria')->get();
         $total_criteria = count($criteria);
-        
-
         for ($a = 1; $a <= $total_criteria; $a++ ){
             for ($b = 0; $b < count($determine_matrix); $b++){
                 $value = pow($determine_matrix[$selected_alternative[$b]->id][$criteria[$a-1]->criteria_name], 2);
-                // echo $value . '<br>' ;
-                // echo $selected_alternative[$b]->university . ' ';
-                // echo $criteria[$a-1]->criteria_name . '<br>' ;
                 $normalized_matrix[$selected_alternative[$b]->id][$criteria[$a-1]->criteria_name] = $value;
             }
-
             $sum_value = array_sum(array_column($normalized_matrix, $criteria[$a-1]->criteria_name));
             $sqrt_value = sqrt($sum_value);
 
             for ($i = 0; $i < count($determine_matrix); $i++){
                  $normalized_matrix[$selected_alternative[$i]->id][$criteria[$a-1]->criteria_name] = $determine_matrix[$selected_alternative[$i]->id][$criteria[$a-1]->criteria_name] / $sqrt_value; 
             }
-
         }
-
 
 
         // Weighted Normalized
@@ -88,8 +73,6 @@ class ProcessController extends Controller
             }
         }
 
-        //  dd($weighted_normalized);
-
         // Y min max
         $max_value = array();
         $min_value = array();
@@ -97,60 +80,44 @@ class ProcessController extends Controller
         for ($a = 0; $a < count($determine_matrix); $a++){
             $valueMax = 0;
             $valueMin = 0;
-
             for ($b = 1; $b <= count($criteria); $b++){
                 if ($criteria[$b - 1]->attribute == 2){
                     $valueMax += $weighted_normalized[$selected_alternative[$a]->id][$criteria[$b-1]->criteria_name];
+                    
                 }
-                else if($criteria[$b - 1]->attribute == 1){
+                else{
                     $valueMin += $weighted_normalized[$selected_alternative[$a]->id][$criteria[$b-1]->criteria_name];
                 }
-
             }
-
-
-           
             $max_value[$selected_alternative[$a]->id] = $valueMax;
             $min_value[$selected_alternative[$a]->id] = $valueMin;
-
-
         }
+        
+
+        // Get the Rank
 
         $ranking = array();
         for ($a = 0; $a < count($determine_matrix); $a++){
             $yi_value = $max_value[$selected_alternative[$a]->id] - $min_value[$selected_alternative[$a]->id];
             $ranking[$selected_alternative[$a]->id] = $yi_value;
         }
-
-        // dd($ranking);
         arsort($ranking, SORT_NUMERIC);
-        // dd($ranking);
-         
-        foreach($ranking as $id => $value) {
-            for ($a = 0; $a < count($determine_matrix); $a++){
-            if ($selected_alternative[$a]->id == $id ){
-                $name = DB::table('alternative')->where('id', $id)->value('university');
-                echo "id=" . $id . ", Value=" . $value . " Name = " . $name;
-                echo '<br>';
-            }
-        }
-    }
-
-
+        $ranked = array_keys($ranking);
+        $sorted_ranked = implode(',', $ranked);
+        $results = Alternative::whereIntegerInRaw('id', $ranked)
+            ->orderByRaw(Alternative::raw("FIELD(id, $sorted_ranked)"))
+            ->get(['id', 'university']);
         $location = DB::table('location')->get();
-        return view('welcome', compact('location', 'criteria'));
-
-        // Create Determine Matrix
+        return view('result', compact('location', 'criteria', 'results'));
 
         
     }
 
 
     public function reset(Request $request){
-        $criteria = DB::table('weight_criteria')->where('weight', '!=', 0)->update(['weight' => 0]);
-        $location_reset= DB::table('location')->where('value', '!=', 0)->update(['value' => 0]);
+        $criteria = DB::table('criteria')->get();
         $location = DB::table('location')->get();
-        return view('welcome', compact('location'));
+        return view('welcome', compact('location', 'criteria'));
     }
 
     
