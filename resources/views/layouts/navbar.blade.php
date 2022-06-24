@@ -11,7 +11,7 @@
 			<div class="nav-item d-flex align-items-center main-title">
 				<a href=""><i class="bx bx-home"></i></a>
 				<div class="separate">|</div>
-				<h4 class="text-title">Best University Ranking System Using SAW</h4>
+				<h4 class="text-title">Best University Ranking System Using Moora Calculation</h4>
 			</div>
 		</div>
 

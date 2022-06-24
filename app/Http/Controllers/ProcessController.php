@@ -21,6 +21,7 @@ class ProcessController extends Controller
         $weight = $request->get('weight');
         $location_selected = $request->get('option');
         $selected_alternative = Alternative::whereIn('id_location', $location_selected)->get();
+        dd($location_selected);
         $count = count($location_selected);
         $value_location = array();
         for ($i = 1; $i <= count($location_selected); $i++){
@@ -43,7 +44,6 @@ class ProcessController extends Controller
                 }      
             }   
         }
-
 
 
         // Normalized 
@@ -114,11 +114,6 @@ class ProcessController extends Controller
     }
 
 
-    public function reset(Request $request){
-        $criteria = DB::table('criteria')->get();
-        $location = DB::table('location')->get();
-        return view('welcome', compact('location', 'criteria'));
-    }
 
     
 }

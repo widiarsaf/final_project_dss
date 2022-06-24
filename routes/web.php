@@ -13,7 +13,6 @@ Auth::routes();
 
 // without out
 Route::post('/process', [ProcessController::class, 'index'])->name('process');
-Route::get('/reset/data', [ProcessController::class, 'reset'])->name('reset');
 Route::get('/', [ProcessController::class, 'welcome'])->name('welcome');
 
 
