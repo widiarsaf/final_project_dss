@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Jun 2022 pada 15.18
+-- Waktu pembuatan: 29 Jun 2022 pada 09.10
 -- Versi server: 10.4.19-MariaDB
 -- Versi PHP: 8.0.19
 
@@ -206,7 +206,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `level`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$10$iqMnaQZg8J/VFfWofdwD7euze4lk9L7ThQ/xXQF40Tv9eEKqqpljO', 1);
+(1, 'admin', 'admin@admin.com', '$2y$10$iqMnaQZg8J/VFfWofdwD7euze4lk9L7ThQ/xXQF40Tv9eEKqqpljO', 1),
+(2, 'data_analyst', 'dataanalyst@gmail.com', '$2y$10$A//TSge5DXTSapZpud8oQOzVZT/cL1d/EN.mm.AaQyGqKUYb9soaa', 2);
 
 --
 -- Indexes for dumped tables
@@ -285,7 +286,7 @@ ALTER TABLE `alternative`
 -- AUTO_INCREMENT untuk tabel `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `determine_matrix`
@@ -321,7 +322,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
