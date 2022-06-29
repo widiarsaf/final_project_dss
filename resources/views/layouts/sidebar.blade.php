@@ -12,33 +12,46 @@
 	<div class="menu-inner-shadow"></div>
 
 	<ul class="menu-inner py-1">
+		@if (Auth::user()->level == 1)
 		<!-- Alternatives-->
-		<li class="menu-item">
-			<a href="{{route('alternative.index')}}" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-food-menu"></i>
-				<div data-i18n="Analytics">Alternatives</div>
-			</a>
-		</li>
-		<!-- Criteria -->
-		<li class="menu-item">
-			<a href="{{route('criteria.index')}}" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-label"></i>
-				<div data-i18n="Analytics">Criteria</div>
-			</a>
-		</li>
-		<!-- Criteria -->
-		<li class="menu-item">
-			<a href="{{route('location.index')}}" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-location-plus"></i>
-				<div data-i18n="Analytics">Locations</div>
-			</a>
-		</li>
-		<!-- Admin User-->
-		<li class="menu-item">
-			<a href="{{route('user.index')}}" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-user"></i>
-				<div data-i18n="Analytics">Admin User</div>
-			</a>
-		</li>
+			<li class="menu-item">
+				<a href="{{route('alternative.index')}}" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-food-menu"></i>
+					<div data-i18n="Analytics">Alternatives</div>
+				</a>
+			</li>
+			<!-- Criteria -->
+			<li class="menu-item">
+				<a href="{{route('criteria.index')}}" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-label"></i>
+					<div data-i18n="Analytics">Criteria</div>
+				</a>
+			</li>
+			<!-- Criteria -->
+			<li class="menu-item">
+				<a href="{{route('location.index')}}" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-location-plus"></i>
+					<div data-i18n="Analytics">Locations</div>
+				</a>
+			</li>
+			<!-- Admin User-->
+			<li class="menu-item">
+				<a href="{{route('user.index')}}" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-user"></i>
+					<div data-i18n="Analytics">Admin User</div>
+				</a>
+			</li>
+
+		@elseif (Auth::user()->level == 2)
+		<!-- Calculation User-->
+			<li class="menu-item">
+				<a href="{{route('dataAnalyst')}}" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-user"></i>
+					<div data-i18n="Analytics">Calculation</div>
+				</a>
+			</li>
+
+		@endif
+	
 	</ul>
 </aside>

@@ -30,62 +30,46 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="{{route('welcome')}}" >Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="{{route('welcome')}}" style="color: grey">Home</a></li>
 				</ul>
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="{{route('university')}}" >List of University</a></li>
+					<li class="nav-item"><a class="nav-link" href="{{route('university')}}" style="color: grey">List of University</a></li>
 				</ul>
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="{{route('login')}}" style="color: grey">Login</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<!-- Masthead-->
-	<header class="masthead" style='background-image: url("{{asset('assets/assetUser/img/background.jpg')}}");'>
-		<div class="container">
-			<div class="masthead-subheading">Decision Support System for Best University Selection using MOORA Method
-			</div>
-			<a class="btn btn-primary btn-xl text-uppercase" href="#services">Get Recommendation</a>
-		</div>
-	</header>
 	<!-- Form-->
 	<section class="page-section" id="services">
-
-
-
 		<div class="container">
-
-			<form method="POST" action="{{ route('process') }}">
-				<div style="display: flex;justify-content: center; gap: 40px">
-					<div class="col-md-5">
-						@csrf
-						<h1>Weight Criteria</h1>
-						@foreach ($criteria as $c)
-						<div class="mb-2">
-							<label for="">{{$c->criteria_name}}</label>
-							<br>
-							<input type="text" name="weight[{{$c->criteria_name}}]" class="form-control" required>
-						</div>
+		<h5 class="card-header">Alternatives Table</h5>
+		<div class="table-responsive text-nowrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>University Name</th>
+						@foreach ($criteria as $c )
+						<th>{{$c}}</th>
 						@endforeach
-					</div>
-					<div class="col-md-5">
-						<h1>Location Choose</h1>
-						<div>
-							@php $val = 3 @endphp
-							@for ($i = 0; $i<5; $i++) <label for="">Option {{$i+1}}</label>
-								<select id="defaultSelect" class="form-select form-select mb-3" name="option[{{$i+1}}]" required>
-									@foreach($location as $loc)
-									<option value="{{$loc->id}}">{{$loc->location_name}}</option>
-									@endforeach
-								</select>
-								@endfor
-						</div>
-					</div>
-					
-				</div>
-				<center><button type="submit" class="btn btn-primary btn-xl mt-5" style="background: rgb(23, 23, 23); border:none;">Process</button></center>
-			</form>
+					</tr>
+				</thead>
+				<tbody class="table-border-bottom-0">
+					@foreach ($alternative as $altv)
+					<tr>
+						<td>{{$altv->university}}</td>
+						@foreach ($criteria as $c )
+						@if ($c == 'location')
+						<th>{{$altv->$c->location_name}}</th>
+						@else
+						<th>{{$altv->$c}}</th>
+						@endif
+						@endforeach
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
 		</div>
 	</section>
 

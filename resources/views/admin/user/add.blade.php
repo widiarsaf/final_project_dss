@@ -35,6 +35,7 @@
 					<div class="col-sm-10">
 						<select id="defaultSelect" class="form-select form-select" name="level">
 							<option value="1">Admin</option>
+							<option value="2">Data Analyst</option>
 						</select>
 					</div>
 				</div>

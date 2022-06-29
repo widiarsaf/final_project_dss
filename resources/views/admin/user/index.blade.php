@@ -25,6 +25,8 @@
 					<td>{{$u->email}}</td>
 					@if ($u->level == '1')
 					<td>admin</td>
+					@else 
+					<td>Data Analyst</td>
 					@endif
 					<td>
 						<form action="{{ route('location.destroy',$u->id) }}" method="POST">

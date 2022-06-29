@@ -23,8 +23,13 @@ class HomeController extends Controller
             $admin = User::where('level', '1')->first();
             $criteria = DB::table('criteria')->get();
             $location = DB::table('location')->get();
-            return redirect()->route('location.index')
-            ->with('success', 'qrcode berhasil diupdate');
+            return redirect()->route('alternative.index');
+        }
+        if(Auth::User()->level == '2'){
+            $data = User::where('level', '2')->first();
+            $criteria = DB::table('criteria')->get();
+            $location = DB::table('location')->get();
+            return redirect()->route('dataAnalyst');
         }
         $criteria = DB::table('criteria')->get();
         $location = DB::table('location')->get();

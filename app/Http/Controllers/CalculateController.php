@@ -1,23 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
 
 use Illuminate\Http\Request;
 use App\Models\Criteria;
 use App\Models\Location;
 use App\Models\Alternative;
-use DB;
 
-class ProcessController extends Controller
+class CalculateController extends Controller
 {
-    public function welcome(){
-         $criteria = DB::table('criteria')->get();
+    private $determine_matrix_table = array();
+    private $normalize_matrix_table = array();
+    private $weighted_normalized_table = array();
+    private $yi_table = array();
+
+
+    public function index(){
+        $criteria = DB::table('criteria')->get();
         $location = DB::table('location')->get();
-        return view('welcome', compact('location','criteria'));
+        return view('admin.data_analyst.index', compact('location','criteria'));
     }
 
-    public function index(Request $request){
-        
+    public function calculation(Request $request){
         $weight = $request->get('weight');
         $location_selected = $request->get('option');
         $selected_alternative = Alternative::whereIn('id_location', $location_selected)->get();
@@ -28,22 +33,30 @@ class ProcessController extends Controller
             $value_location[$location_selected[$i]]['value'] = $count;
             $count--; 
         }
-        
+
 
         // get determine matrix
         $criteria_name_pluck = Criteria::pluck('criteria_name');
         $determine_matrix = array();
         foreach($selected_alternative as $alternative){
             $determine_matrix[$alternative->id]['id'] = $alternative->id;
+            $determine_matrix_table[$alternative->id]['id'] = $alternative->id;
+            $determine_matrix_table[$alternative->id]['university'] = $alternative->university;
             foreach ($criteria_name_pluck as $c){
                 if($c == 'location'){
                     $determine_matrix[$alternative->id]['location'] = $value_location[$alternative->id_location]['value'];
+                    $determine_matrix_table[$alternative->id]['location'] = $value_location[$alternative->id_location]['value'];
                 }
                 else{
                     $determine_matrix[$alternative->id][$c] = $alternative->$c;
+                    $determine_matrix_table[$alternative->id][$c] = $alternative->$c;
                 }      
             }   
         }
+
+        // dd($determine_matrix_table);
+
+
 
 
         // Normalized 
@@ -63,6 +76,12 @@ class ProcessController extends Controller
             }
         }
 
+        $normalize_matrix_table = $normalized_matrix;
+        for ($i = 0; $i < count($determine_matrix); $i++){
+            $normalize_matrix_table[$selected_alternative[$i]->id]['university'] =  $selected_alternative[$i]->university;
+        }
+
+       
 
         // Weighted Normalized
         $weighted_normalized = array();
@@ -73,7 +92,13 @@ class ProcessController extends Controller
             }
         }
 
-        dd($normalized_matrix);
+
+        $weighted_normalized_table = $weighted_normalized;
+        for ($i = 0; $i < count($determine_matrix); $i++){
+             $weighted_normalized_table[$selected_alternative[$i]->id]['university'] =  $selected_alternative[$i]->university;
+        }
+
+
         // Y min max
         $max_value = array();
         $min_value = array();
@@ -92,8 +117,12 @@ class ProcessController extends Controller
             }
             $max_value[$selected_alternative[$a]->id] = $valueMax;
             $min_value[$selected_alternative[$a]->id] = $valueMin;
+            $yi_table[$selected_alternative[$a]->id]['university'] = $selected_alternative[$a]->university;;
+            $yi_table[$selected_alternative[$a]->id]['max_value'] = $valueMax;
+            $yi_table[$selected_alternative[$a]->id]['min_value'] = $valueMin;
         }
         
+       
 
         // Get the Rank
 
@@ -101,7 +130,9 @@ class ProcessController extends Controller
         for ($a = 0; $a < count($determine_matrix); $a++){
             $yi_value = $max_value[$selected_alternative[$a]->id] - $min_value[$selected_alternative[$a]->id];
             $ranking[$selected_alternative[$a]->id] = $yi_value;
+            $yi_table[$selected_alternative[$a]->id]['yi_value'] = $yi_value;
         }
+
         arsort($ranking, SORT_NUMERIC);
         $ranked = array_keys($ranking);
         $sorted_ranked = implode(',', $ranked);
@@ -109,18 +140,6 @@ class ProcessController extends Controller
             ->orderByRaw(Alternative::raw("FIELD(id, $sorted_ranked)"))
             ->get(['id', 'university']);
         $location = DB::table('location')->get();
-        return view('result', compact('location', 'criteria', 'results'));
-
-        
+        return view('admin.data_analyst.result', compact('location', 'criteria', 'results', 'determine_matrix_table' , 'criteria_name_pluck', 'normalize_matrix_table', 'weighted_normalized_table', 'yi_table'));
     }
-
-    public function university(){
-        $criteria = Criteria::pluck('criteria_name');
-        $alternative = Alternative::with('location')->get();
-        return view ('university', compact('alternative', 'criteria'));
-    }
-
-
-
-    
 }
